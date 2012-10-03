@@ -1,0 +1,20 @@
+<ivy-module version="2.0">
+    <info organisation="ee" module="woservice"/>
+    <configurations>
+        <conf name="default" transitive="false"/>
+        <conf name="test" extends="default" description="Dependencies for junit tests" transitive="false"/>
+    </configurations>
+    <dependencies defaultconf="default">
+        <!-- Logging -->
+        <dependency org="slf4j" name="slf4j-api" rev="1.5.10"/>
+        <dependency org="slf4j" name="jcl-over-slf4j" rev="1.5.10"/>
+        <dependency org="logback" name="logback-classic" rev="0.9.17"/>
+        <dependency org="logback" name="logback-core" rev="0.9.17"/>
+
+        <!-- TEST -->
+        <dependency org="junit" name="junit" rev="4.8.2" conf="test->default"/>
+        <dependency org="mockito" name="mockito-all" rev="1.9.0" conf="test->default"/>
+
+
+    </dependencies>
+</ivy-module>
