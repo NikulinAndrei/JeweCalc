@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="jewecalc.CalculatorHelper" %>
+<%@ page import="jewecalc.PacketizerQuoteService" %>
+<%@ page import="jewecalc.Material" %>
 <%
     String pricePerUnit = "..." ;
     String calculatedPrice = null;
@@ -11,6 +13,7 @@
 
     if(submit != null){
         calculatedPrice = CalculatorHelper.calculate( material, unit, weight, probe);
+        pricePerUnit = String.valueOf( new PacketizerQuoteService().getPrice( Material.valueOf(material)).toDouble());
     }
 %>
 <!DOCTYPE html>

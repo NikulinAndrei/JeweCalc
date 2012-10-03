@@ -16,6 +16,8 @@ class Price (val unit: Unit, val microCents: Long, val currency: Currency){
       case Unit.oz => new Price( newUnit, (microCents* Price.GRAMS_IN_OZ).toLong, currency )
     }
   }
+
+  def toDouble() = (microCents/1000).toDouble / 100
 }
 
 object Price{

@@ -10,7 +10,7 @@ import org.slf4j.{LoggerFactory, Logger}
 class Calculator {
   private val log = LoggerFactory.getLogger( this.getClass )
 
-  var service = new QuoteService
+  var service = new PacketizerQuoteService
 
   def calculatePrice( request: Tuple5[Material, Unit, Currency, Int, Double] ) ={
 

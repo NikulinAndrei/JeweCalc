@@ -20,7 +20,7 @@ class CalculatorTest {
 
   @Before def setupCalculator() {
     calculator = new Calculator
-    calculator.service = mock( classOf[QuoteService] )
+    calculator.service = mock( classOf[PacketizerQuoteService] )
     when( calculator.service.getPrice( GOLD )).thenReturn( new Price(g, 50000000, USD))
   }
 

@@ -5,10 +5,8 @@ package jewecalc
  * User: andrei nikulin
  * Date: 3.10.12
  */
-class QuoteService {
+trait QuoteService {
 
-  def getPrice( material: Material) = {
-    new Price( Unit.g, 50000, Currency.USD) // Dummy implementation
-  }
+  def getPrice( material: Material) : Price
 
 }
