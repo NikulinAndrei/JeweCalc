@@ -25,7 +25,6 @@ class Calculator {
     log.info("END calculation: " + material+" PRICE is  " + result )
     result
   }
-
-
 }
+
 

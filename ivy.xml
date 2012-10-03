@@ -5,6 +5,10 @@
         <conf name="test" extends="default" description="Dependencies for junit tests" transitive="false"/>
     </configurations>
     <dependencies defaultconf="default">
+        <!--Scala-->
+        <dependency org="scala" name="scala-compiler" rev="2.9.1"/>
+        <dependency org="scala" name="scala-library" rev="2.9.1"/>
+
         <!-- Logging -->
         <dependency org="slf4j" name="slf4j-api" rev="1.5.10"/>
         <dependency org="slf4j" name="jcl-over-slf4j" rev="1.5.10"/>
