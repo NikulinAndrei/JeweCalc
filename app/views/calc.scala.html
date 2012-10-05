@@ -1,0 +1,45 @@
+@(calcForm: Form[Jewellery], price:String = "?")
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Jewellery calculator"){
+<div class="container">
+    @form(action = routes.Application.calculate){
+        <legend>Provide your jewelery data</legend>
+
+        @select(field = calcForm("material"),
+            options = options(("GOLD", "Gold"),("SILVER", "Silver")),
+            '_label->"Material"
+        )
+
+        @select(field = calcForm("unit"),
+            options = options(("g", "Grams"),("oz", "Oz")),
+            '_label->"Unit"
+        )
+
+        @inputText(calcForm("pricePerunit"), 'readonly -> "readonly", '_label->"Price per unit")
+
+        @inputText(calcForm("probe"), '_label->"Probe")
+
+        @inputText(calcForm("weight"), '_label->"Weight")
+
+        <input type="submit" class="btn btn-primary" value="Calculate">
+
+        @if(calcForm.hasErrors) {
+            <div class="alert-message error">
+                <p><strong>Oops</strong> Please fix all errors</p>
+            </div>
+        }
+
+
+        <!--<div class="control-group">-->
+            <!--<div class="alert">-->
+                <!--The calculated price is <strong><%=calculatedPrice%> USD</strong>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!---->
+
+    }
+</div>
+}
