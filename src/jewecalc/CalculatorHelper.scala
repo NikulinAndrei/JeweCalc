@@ -1,5 +1,7 @@
 package jewecalc
 
+import Currency._
+
 /**
  * Created with IntelliJ IDEA.
  * User: andrei nikulin
@@ -12,7 +14,7 @@ object CalculatorHelper {
     val weight = sWeight.toDouble
     val probe = sProbe.toInt
 
-    val price = new Calculator().calculatePrice( (material, unit, Currency.USD, probe, weight) )
+    val price = new Calculator().calculatePrice( (material, unit, USD, probe, weight) )
 
     ((price.microCents.toDouble / 1000).round.toDouble / 100).toString
   }

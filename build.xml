@@ -2,58 +2,64 @@
 <project name="jeweCalc" basedir="." default="ALL"
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <target name="-init">
-        <property name="tmp.dir" value="build_temp"/>
-        <property name="lib.dir" value="${tmp.dir}/lib"/>
-        <property name="web.dir" value="${basedir}/web"/>
-        <property name="src.dir" value="${basedir}/src"/>
-        <property name="tmp.classes.dir" value="${tmp.dir}/classestemp"/>
-        <property name="out.dir" value="${tmp.dir}/build_out"/>
+  <target name="-init">
+    <property name="tmp.dir" value="build_temp"/>
+    <property name="lib.dir" value="${tmp.dir}/lib"/>
+    <property name="web.dir" value="${basedir}/web"/>
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="tmp.classes.dir" value="${tmp.dir}/classestemp"/>
+    <property name="out.dir" value="${tmp.dir}/build_out"/>
+    <property name="tomcat.dir" value="/Soft/apache-tomcat-7.0.27/"/>
 
-        <path id="classpath">
-            <fileset dir="${lib.dir}"/>
-            <fileset dir="${tmp.classes.dir}"/>
-        </path>
+    <path id="classpath">
+      <fileset dir="${lib.dir}"/>
+      <fileset dir="${tmp.classes.dir}"/>
+    </path>
 
-    </target>
+  </target>
 
-    <target name="-prepare" depends="-init">
-        <delete dir="${out.dir}" failonerror="true" taskname="Delete ${out.dir} catalog"/>
-        <delete dir="${tmp.dir}" failonerror="true" taskname="Delete ${tmp.dir} catalog"/>
-        <mkdir dir="${tmp.dir}" taskname="Create ${tmp.dir} catalog"/>
-        <mkdir dir="${lib.dir}" taskname="Create ${lib.dir} catalog"/>
-        <mkdir dir="${tmp.classes.dir}" taskname="Create ${tmp.classes.dir} catalog"/>
-        <mkdir dir="${out.dir}" taskname="Create ${out.dir} catalog"/>
-        <ivy:retrieve conf="default" pattern="${lib.dir}/[artifact]-[revision].[ext]"
-                      taskname="Retrieve Dependency libraries  using Ivy"/>
-    </target>
+  <target name="-prepare" depends="-init">
+    <delete dir="${out.dir}" failonerror="true" taskname="Delete ${out.dir} catalog"/>
+    <delete dir="${tmp.dir}" failonerror="true" taskname="Delete ${tmp.dir} catalog"/>
+    <mkdir dir="${tmp.dir}" taskname="Create ${tmp.dir} catalog"/>
+    <mkdir dir="${lib.dir}" taskname="Create ${lib.dir} catalog"/>
+    <mkdir dir="${tmp.classes.dir}" taskname="Create ${tmp.classes.dir} catalog"/>
+    <mkdir dir="${out.dir}" taskname="Create ${out.dir} catalog"/>
+    <ivy:retrieve conf="default" pattern="${lib.dir}/[artifact]-[revision].[ext]"
+                  taskname="Retrieve Dependency libraries  using Ivy"/>
+  </target>
 
-    <target name="-compile">
+  <target name="-compile">
 
-        <taskdef resource="scala/tools/ant/antlib.xml">
-            <classpath refid="classpath"/>
-        </taskdef>
+    <taskdef resource="scala/tools/ant/antlib.xml">
+      <classpath refid="classpath"/>
+    </taskdef>
 
-        <scalac srcdir="./src"
-                destdir="${tmp.classes.dir}"
-                classpathref="classpath">
-            <include name="jewecalc/**/*.scala"/>
-        </scalac>
+    <scalac srcdir="./src"
+            destdir="${tmp.classes.dir}"
+            classpathref="classpath">
+      <include name="jewecalc/**/*.scala"/>
+    </scalac>
 
-        <javac srcdir="./src" destdir="${tmp.classes.dir}" classpathref="classpath">
-            <include name="jewecalc/**/*.java"/>
-        </javac>
-    </target>
+    <javac srcdir="./src" destdir="${tmp.classes.dir}" classpathref="classpath">
+      <include name="jewecalc/**/*.java"/>
+    </javac>
+  </target>
 
-    <target name="-create-war">
-        <war warfile="${out.dir}/jewecalc.war"
-             webxml="${web.dir}/WEB-INF/web.xml" taskname="Generate .war file">
-            <classes dir="${tmp.classes.dir}"/>
-            <lib dir="${lib.dir}" />
-            <fileset dir="${web.dir}" includes="**/*.*"/>
-        </war>
-    </target>
+  <target name="-create-war">
+    <war warfile="${out.dir}/jewecalc.war"
+         webxml="${web.dir}/WEB-INF/web.xml" taskname="Generate .war file">
+      <classes dir="${tmp.classes.dir}"/>
+      <lib dir="${lib.dir}"/>
+      <fileset dir="${web.dir}" includes="**/*.*"/>
+    </war>
+  </target>
 
-    <target name="ALL" depends="-prepare, -compile, -create-war" />
+  <target name="-deploy">
+    <delete dir="${tomcat.dir}/webapps/jewecalc"/>
+    <copy todir="${tomcat.dir}/webapps" file="${out.dir}/jewecalc.war"/>
+  </target>
+
+  <target name="ALL" depends="-prepare, -compile, -create-war, -deploy"/>
 
 </project>

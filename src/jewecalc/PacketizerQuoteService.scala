@@ -1,6 +1,8 @@
 package jewecalc
 
 import scala.util.parsing.json._
+import Unit._
+import Currency._
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +14,7 @@ class PacketizerQuoteService extends QuoteService{
   def getPrice(material: Material) = {
     val priceInDollars = parseJson( readFromRemoteService() ).get( material.name().toLowerCase )
 
-    new Price(Unit.oz, (priceInDollars.get.toDouble * 100).toLong * 1000, Currency.USD)
+    new Price( oz, (priceInDollars.get.toDouble * 100).toLong * 1000, USD)
   }
 
   private def readFromRemoteService() ={

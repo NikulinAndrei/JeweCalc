@@ -1,6 +1,6 @@
 package jewecalc
 
-import org.slf4j.{LoggerFactory, Logger}
+import org.slf4j.LoggerFactory
 
 /**
  * Created with IntelliJ IDEA.

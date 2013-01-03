@@ -1,6 +1,6 @@
 package jewecalc
 
-import  Unit._
+import Price._
 /**
  * Created with IntelliJ IDEA.
  * User: andrei nikulin
@@ -12,8 +12,8 @@ class Price (val unit: Unit, val microCents: Long, val currency: Currency){
   def toUnit( newUnit: Unit ) = {
     newUnit match{
       case this.unit => this
-      case Unit.g => new Price( newUnit, (microCents/ Price.GRAMS_IN_OZ).toLong, currency )
-      case Unit.oz => new Price( newUnit, (microCents* Price.GRAMS_IN_OZ).toLong, currency )
+      case Unit.g => new Price( newUnit, (microCents / GRAMS_IN_OZ).toLong, currency )
+      case Unit.oz => new Price( newUnit, (microCents * GRAMS_IN_OZ).toLong, currency )
     }
   }
 
