@@ -10,11 +10,12 @@ import Currency._
  * Date: 3.10.12
  */
 class PacketizerQuoteService extends QuoteService{
+  private val DEFAULT_CURRENCY = USD
 
   def getPrice(material: Material) = {
     val priceInDollars = parseJson( readFromRemoteService() ).get( material.name().toLowerCase )
 
-    new Price( oz, (priceInDollars.get.toDouble * 100).toLong * 1000, USD)
+    new Price( oz, (priceInDollars.get.toDouble * 100).toLong * 1000, DEFAULT_CURRENCY)
   }
 
   private def readFromRemoteService() ={

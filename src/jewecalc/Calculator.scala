@@ -17,7 +17,9 @@ class Calculator {
     val (material, unit, currency, probe, weight) = request
     log.info("BEGIN calculation: "+weight+" " +unit + " of " +probe+"-probe " + material+", in " + currency )
 
-    val pricePerUnit = service.getPrice( material ).toUnit( unit )
+    val pricePerUnit = service.getPrice( material ).
+      toUnit( unit ).
+      toCurrency(currency)
 
     val calculatedPriceInMicrocents = pricePerUnit.microCents * weight * (probe.toDouble/1000)
 

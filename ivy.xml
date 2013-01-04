@@ -1,23 +1,26 @@
 <ivy-module version="2.0">
-    <info organisation="ee" module="woservice"/>
-    <configurations>
-        <conf name="default" transitive="false"/>
-        <conf name="test" extends="default" description="Dependencies for junit tests" transitive="false"/>
-    </configurations>
-    <dependencies defaultconf="default">
-        <!--Scala-->
-        <dependency org="org.scala-lang" name="scala-library" rev="2.9.2"/>
-        <dependency org="org.scala-lang" name="scala-compiler" rev="2.9.2"/>
+  <info organisation="ee" module="woservice"/>
+  <configurations>
+    <conf name="default" transitive="false"/>
+    <conf name="test" extends="default" description="Dependencies for junit tests" transitive="false"/>
+  </configurations>
+  <dependencies defaultconf="default">
+    <!--Scala-->
+    <dependency org="org.scala-lang" name="scala-library" rev="2.9.2"/>
+    <dependency org="org.scala-lang" name="scala-compiler" rev="2.9.2"/>
 
-        <!-- Logging -->
-        <dependency org="org.slf4j" name="slf4j-api" rev="1.6.6"/>
-        <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.6.6"/>
-        <dependency org="ch.qos.logback" name="logback-classic" rev="1.0.6"/>
-        <dependency org="ch.qos.logback" name="logback-core" rev="1.0.6"/>
+    <!--Google APIs -->
+    <dependency org="com.google.code.gson" name="gson" rev="2.2.2" />
 
-        <!-- TEST -->
-        <dependency org="junit" name="junit" rev="4.10" conf="test->default"/>
-        <dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="test->default"/>
+    <!-- Logging -->
+    <dependency org="org.slf4j" name="slf4j-api" rev="1.6.6"/>
+    <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.6.6"/>
+    <dependency org="ch.qos.logback" name="logback-classic" rev="1.0.6"/>
+    <dependency org="ch.qos.logback" name="logback-core" rev="1.0.6"/>
 
-    </dependencies>
+    <!-- TEST -->
+    <dependency org="junit" name="junit" rev="4.10" conf="test->default"/>
+    <dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="test->default"/>
+
+  </dependencies>
 </ivy-module>

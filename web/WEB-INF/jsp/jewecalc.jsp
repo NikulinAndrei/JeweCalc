@@ -2,6 +2,7 @@
 <%@ page import="jewecalc.CalculatorHelper" %>
 <%@ page import="jewecalc.PacketizerQuoteService" %>
 <%@ page import="jewecalc.Material" %>
+<%@ page import="jewecalc.Currency" %>
 <%
     String pricePerUnit = "..." ;
     String calculatedPrice = null;
@@ -9,11 +10,15 @@
     String unit = request.getParameter("unit");
     String probe = request.getParameter("probe");
     String weight = request.getParameter("weight");
+    String currency = request.getParameter("currency");
     String submit = request.getParameter("submit");
 
     if(submit != null){
-        calculatedPrice = CalculatorHelper.calculate( material, unit, weight, probe);
-        pricePerUnit = String.valueOf( new PacketizerQuoteService().getPrice( Material.valueOf(material)).toDouble());
+        calculatedPrice = CalculatorHelper.calculate( material, unit, weight, probe, currency);
+        pricePerUnit = String.valueOf( new PacketizerQuoteService().
+          getPrice( Material.valueOf(material)).
+          toCurrency( Currency.valueOf(currency)).
+          toDouble());
     }
 %>
 <!DOCTYPE html>
@@ -45,6 +50,16 @@
                     <select name="unit" id="unit">
                         <option value="g" <%if("g".equals(unit)){out.print("selected");} %> >Grams</option>
                         <option value="oz" <%if("oz".equals(unit)){out.print("selected");} %> >OZ</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="currency">Currency</label>
+                <div class="controls">
+                    <select name="currency" id="currency">
+                        <option value="USD" <%if("USD".equals(unit)){out.print("selected");} %> >USD</option>
+                        <option value="EUR" <%if("EUR".equals(unit)){out.print("selected");} %> >EUR</option>
                     </select>
                 </div>
             </div>
