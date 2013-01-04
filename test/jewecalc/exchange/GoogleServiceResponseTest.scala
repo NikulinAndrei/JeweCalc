@@ -11,7 +11,7 @@ import org.hamcrest.core.Is
  */
 class GoogleServiceResponseTest{
 
-  @Test def getRate {
+  @Test def test_getRate() {
     val resp1 = new GoogleServiceResponse( "0.75 Euros")
     assertThat( resp1.getExchangeRate, Is.is(0.75))
   }

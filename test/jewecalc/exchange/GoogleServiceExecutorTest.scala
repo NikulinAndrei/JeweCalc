@@ -14,11 +14,11 @@ class GoogleServiceExecutorTest {
 
   val executor = new GoogleServiceExecutor
 
-  @Test def createUrl () = {
+  @Test def createUrl ()  {
     assertThat(executor.createUrl( USD, EUR), is("http://www.google.com/ig/calculator?hl=en&q=1USD=EUR"))
   }
 
-  @Test def executeGoogleService () = {
+  @Test def executeGoogleService () {
     val json = executor.getRateData( USD, EUR )
     println(json)
   }

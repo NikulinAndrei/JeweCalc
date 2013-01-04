@@ -12,7 +12,7 @@ class Calculator {
 
   var service = new PacketizerQuoteService
 
-  def calculatePrice( request: Tuple5[Material, Unit, Currency, Int, Double] ) ={
+  def calculatePrice( request: (Material, Unit, Currency, Int, Double) ) ={
 
     val (material, unit, currency, probe, weight) = request
     log.info("BEGIN calculation: "+weight+" " +unit + " of " +probe+"-probe " + material+", in " + currency )
