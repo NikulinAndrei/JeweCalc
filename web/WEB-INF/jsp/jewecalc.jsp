@@ -58,8 +58,8 @@
                 <label class="control-label" for="currency">Currency</label>
                 <div class="controls">
                     <select name="currency" id="currency">
-                        <option value="USD" <%if("USD".equals(unit)){out.print("selected");} %> >USD</option>
-                        <option value="EUR" <%if("EUR".equals(unit)){out.print("selected");} %> >EUR</option>
+                        <option value="USD" <%if("USD".equals(currency)){out.print("selected");} %> >USD</option>
+                        <option value="EUR" <%if("EUR".equals(currency)){out.print("selected");} %> >EUR</option>
                     </select>
                 </div>
             </div>
