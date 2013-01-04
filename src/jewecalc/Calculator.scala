@@ -1,6 +1,7 @@
 package jewecalc
 
 import org.slf4j.LoggerFactory
+import quote.{QuoteService}
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory
 class Calculator {
   private val log = LoggerFactory.getLogger( this.getClass )
 
-  var service = new PacketizerQuoteService
+  var service = new QuoteService
 
   def calculatePrice( request: (Material, Unit, Currency, Int, Double) ) ={
 

@@ -7,6 +7,7 @@ import org.hamcrest.CoreMatchers._
 
 import org.mockito.Mockito._
 import Currency._
+import quote.QuoteService
 import Unit._
 import Material._
 
@@ -20,7 +21,7 @@ class CalculatorTest {
 
   @Before def setupCalculator() {
     calculator = new Calculator
-    calculator.service = mock( classOf[PacketizerQuoteService] )
+    calculator.service = mock( classOf[QuoteService] )
     when( calculator.service.getPrice( GOLD )).thenReturn( new Price(g, 50000000, USD))
   }
 

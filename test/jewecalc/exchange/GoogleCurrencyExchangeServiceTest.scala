@@ -5,7 +5,6 @@ import org.junit.Assert._
 import jewecalc.Currency._
 import org.hamcrest.core.Is._
 import org.mockito.Mockito._
-import reflect.BeanProperty
 
 /**
  * Created with IntelliJ IDEA.

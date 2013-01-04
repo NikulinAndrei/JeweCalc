@@ -1,18 +1,24 @@
-package jewecalc
+package jewecalc.quote
 
 import scala.util.parsing.json._
-import Unit._
-import Currency._
+import jewecalc.Currency._
+import jewecalc.{Price, Material}
+import jewecalc.Unit._
+import org.slf4j.LoggerFactory
 
 /**
  * Created with IntelliJ IDEA.
  * User: andrei nikulin
  * Date: 3.10.12
  */
-class PacketizerQuoteService extends QuoteService{
+private[quote] trait PacketizerQuoteService extends AbstractQuoteService {
+
+  private val log = LoggerFactory.getLogger( classOf[PacketizerQuoteService])
+
   private val DEFAULT_CURRENCY = USD
 
-  def getPrice(material: Material) = {
+  override def getPrice(material: Material) = {
+    log.debug("Executing Packetizer service for {}", material)
     val priceInDollars = parseJson( readFromRemoteService() ).get( material.name().toLowerCase )
 
     new Price( oz, (priceInDollars.get.toDouble * 100).toLong * 1000, DEFAULT_CURRENCY)
