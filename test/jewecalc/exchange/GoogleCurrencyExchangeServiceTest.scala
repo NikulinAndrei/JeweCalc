@@ -13,12 +13,12 @@ import org.mockito.Mockito._
  */
 class GoogleCurrencyExchangeServiceTest {
 
-  var service : GoogleCurrencyExchangeService = null
+  var service : CurrencyExchangeService = null
 
   @Before def setup() {
     val executor : GoogleServiceExecutor = mock( classOf[GoogleServiceExecutor] )
     when( executor.getRateData(USD, EUR)).thenReturn(new GoogleServiceResponse("0.75 Euros"))
-    service = new GoogleCurrencyExchangeService (  executor )
+    service = new CurrencyExchangeService (  executor )
   }
 
   @Test def testGetExchaneRate() {

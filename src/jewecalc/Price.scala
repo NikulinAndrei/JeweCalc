@@ -1,6 +1,6 @@
 package jewecalc
 
-import exchange.{GoogleCurrencyExchangeService, CurrencyExchangeService}
+import exchange.CurrencyExchangeService
 import Price._
 import reflect.BeanProperty
 
@@ -12,7 +12,7 @@ import reflect.BeanProperty
 class Price (val unit: Unit, val microCents: Long, val currency: Currency){
   override def toString = microCents + " " + currency + " microCents / "+ unit
 
-  @BeanProperty var exchangeService : CurrencyExchangeService = new GoogleCurrencyExchangeService
+  @BeanProperty var exchangeService : CurrencyExchangeService = new CurrencyExchangeService
 
   def toUnit( newUnit: Unit ) = {
     newUnit match{

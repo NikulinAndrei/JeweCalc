@@ -2,19 +2,19 @@ package jewecalc.quote
 
 import jewecalc.{Price, Material}
 import org.slf4j.LoggerFactory
-import scala.collection.mutable
+import jewecalc.cache.Cacheable
 
 /**
  * Created with IntelliJ IDEA.
  * User: andrei nikulin
  * Date: 4.01.13
  */
-private [quote] trait CacheQuoteService extends AbstractQuoteService{
+private [quote] trait CacheQuoteService extends AbstractQuoteService with Cacheable[Material, Price]{
   private val log = LoggerFactory.getLogger( classOf[CacheQuoteService])
 
 
   override def getPrice(material: Material): Price = {
-    val price = CacheQuoteService.cache.get( material )
+    val price = getFromCache( material )
 
     val result = if ( price.isDefined ){
       log.debug( "Returning cached price for {}", material)
@@ -23,14 +23,10 @@ private [quote] trait CacheQuoteService extends AbstractQuoteService{
     else{
       log.debug( "cache miss, ", material)
       val price = super.getPrice( material)
-      CacheQuoteService.cache(material) = price
+      putToCache(material, price)
       price
     }
 
     result
   }
-}
-
-private object CacheQuoteService{
-  val cache = mutable.Map.empty[Material, Price]
 }
