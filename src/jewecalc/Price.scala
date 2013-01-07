@@ -12,7 +12,7 @@ import reflect.BeanProperty
 class Price (val unit: Unit, val microCents: Long, val currency: Currency){
   override def toString = microCents + " " + currency + " microCents / "+ unit
 
-  @BeanProperty var exchangeService : CurrencyExchangeService = new CurrencyExchangeService
+  @BeanProperty var exchangeService = new CurrencyExchangeService
 
   def toUnit( newUnit: Unit ) = {
     newUnit match{
@@ -26,7 +26,7 @@ class Price (val unit: Unit, val microCents: Long, val currency: Currency){
     newCurrency match{
       case this.currency => this
       case _ => {
-        val exchangeRate = exchangeService.getExchangeRateRate( this.currency, newCurrency)
+        val exchangeRate = exchangeService.getUsdExchangeRate( newCurrency )
         new Price( unit, (microCents * exchangeRate).round, newCurrency)
       }
     }

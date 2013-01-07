@@ -1,4 +1,4 @@
-package jewecalc.cache
+package jewecalc.service
 
 import net.sf.ehcache.CacheManager
 
@@ -7,7 +7,7 @@ import net.sf.ehcache.CacheManager
  * User: andrei nikulin
  * Date: 7.01.13
  */
-private[cache] object Cache {
+private[service] object Cache {
   CacheManager.getInstance().addCache("default")
   val defaultCache = CacheManager.getInstance().getCache("default")
 }

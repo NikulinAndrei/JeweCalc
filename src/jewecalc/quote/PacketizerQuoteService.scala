@@ -5,19 +5,20 @@ import jewecalc.Currency._
 import jewecalc.{Price, Material}
 import jewecalc.Unit._
 import org.slf4j.LoggerFactory
+import jewecalc.service.BackendService
 
 /**
  * Created with IntelliJ IDEA.
  * User: andrei nikulin
  * Date: 3.10.12
  */
-private[quote] trait PacketizerQuoteService extends AbstractQuoteService {
+private[quote] trait PacketizerQuoteService extends BackendService[Material, Price] {
 
   private val log = LoggerFactory.getLogger( classOf[PacketizerQuoteService])
-
   private val DEFAULT_CURRENCY = USD
 
-  override def getPrice(material: Material) = {
+
+  def executeBackendService(material: Material): Price = {
     log.debug("Executing Packetizer service for {}", material)
     val priceInDollars = parseJson( readFromRemoteService() ).get( material.name().toLowerCase )
 

@@ -16,12 +16,11 @@ class GoogleCurrencyExchangeServiceTest {
   var service : CurrencyExchangeService = null
 
   @Before def setup() {
-    val executor : GoogleServiceExecutor = mock( classOf[GoogleServiceExecutor] )
-    when( executor.getRateData(USD, EUR)).thenReturn(new GoogleServiceResponse("0.75 Euros"))
-    service = new CurrencyExchangeService (  executor )
+    service = spy( new CurrencyExchangeService ( ) )
+    when( service.getRateData(USD, EUR)).thenReturn(new GoogleServiceResponse("0.75 Euros"))
   }
 
   @Test def testGetExchaneRate() {
-    assertThat( service.getExchangeRateRate(USD, EUR), is(0.75) )
+    assertThat( service.getUsdExchangeRate( EUR ), is(0.75) )
   }
 }

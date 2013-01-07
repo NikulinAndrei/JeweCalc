@@ -12,7 +12,7 @@ import org.hamcrest.core.Is._
  */
 class GoogleServiceExecutorTest {
 
-  val executor = new GoogleServiceExecutor
+  val executor = new Object with GoogleExchangeRateService
 
   @Test def createUrl ()  {
     assertThat(executor.createUrl( USD, EUR), is("http://www.google.com/ig/calculator?hl=en&q=1USD=EUR"))

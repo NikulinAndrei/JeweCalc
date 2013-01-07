@@ -42,7 +42,7 @@ public class PriceTest {
   @Test public void usd_to_eur_ToCurency() {
     Price p1 = new Price(Unit.g, 100L, USD);
     p1.setExchangeService( mock( CurrencyExchangeService.class ));
-    when(p1.getExchangeService().getExchangeRateRate(USD, EUR)).thenReturn(0.749912);
+    when(p1.getExchangeService().getUsdExchangeRate( EUR)).thenReturn(0.749912);
 
     Price p2 = p1.toCurrency( EUR );
     assertThat( p2.currency(), is( EUR ));

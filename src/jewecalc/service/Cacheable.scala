@@ -1,4 +1,4 @@
-package jewecalc.cache
+package jewecalc.service
 
 import net.sf.ehcache.Element
 
