@@ -1,6 +1,6 @@
 package jewecalc
 
-import org.junit.{Before, Test}
+import org.junit.{ Before, Test}
 import org.junit.Assert._
 
 import org.hamcrest.CoreMatchers._
@@ -10,6 +10,7 @@ import Currency._
 import quote.QuoteService
 import Unit._
 import Material._
+import org.junit.rules.ExpectedException
 
 /**
  * Created with IntelliJ IDEA.

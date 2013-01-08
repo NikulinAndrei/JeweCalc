@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static jewecalc.Currency.*;
+import static jewecalc.Unit.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,5 +55,13 @@ public class PriceTest {
     Price p2 = p1.toCurrency( USD );
     assertThat( p2.currency(), is( USD ));
     assertThat( p2.microCents(), is( 100L ));
+  }
+
+  @Test  public void test_asMoney() {
+    Price p1 = new Price(g, 5655_499L, USD);
+    assertThat(p1.asMoney(), is("56.55"));
+
+    Price p2 = new Price(g, 5655_500L, USD);
+    assertThat(p2.asMoney(), is("56.56"));
   }
 }

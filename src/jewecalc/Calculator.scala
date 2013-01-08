@@ -1,7 +1,7 @@
 package jewecalc
 
 import org.slf4j.LoggerFactory
-import quote.{QuoteService}
+import quote.QuoteService
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +27,26 @@ class Calculator {
     val  result = new Price(unit, calculatedPriceInMicrocents.toLong, currency)
     log.info("END calculation: " + material+" PRICE is  " + result )
     result
+  }
+}
+
+object Calculator{
+  def calculate( sMaterial:String, sUnit: String , sWeight: String, sProbe: String, sCurrency: String )={
+    require( sMaterial != null && !sMaterial.isEmpty, "Material is not specified")
+    require( sUnit != null && !sUnit.isEmpty, "Unit is not specified")
+    require( sWeight != null && !sWeight.isEmpty, "Weight is not specified")
+    require( sProbe != null && !sProbe.isEmpty, "Probe is not specified")
+    require( sCurrency != null && !sCurrency.isEmpty, "Currency is not specified")
+
+    val material = Material valueOf sMaterial
+    val unit = Unit valueOf sUnit
+    val weight = sWeight.toDouble
+    val probe = sProbe.toInt
+    val currency = Currency valueOf sCurrency
+
+    val price = new Calculator().calculatePrice( (material, unit, currency, probe, weight) )
+
+    price.asMoney()
   }
 }
 

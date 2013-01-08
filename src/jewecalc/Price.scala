@@ -32,7 +32,11 @@ class Price (val unit: Unit, val microCents: Long, val currency: Currency){
     }
   }
 
-  def toDouble() = (microCents/1000).toDouble / 100
+  def toDouble() = (microCents.toDouble/1000).round.toDouble / 100
+
+  def asMoney() = {
+    String.valueOf( toDouble() )
+  }
 }
 
 object Price{

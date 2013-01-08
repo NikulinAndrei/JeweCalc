@@ -1,26 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="jewecalc.CalculatorHelper" %>
-<%@ page import="jewecalc.quote.QuoteService" %>
-<%@ page import="jewecalc.Material" %>
-<%@ page import="jewecalc.Currency" %>
-<%
-    String pricePerUnit = "..." ;
-    String calculatedPrice = null;
-    String material = request.getParameter("material") ;
-    String unit = request.getParameter("unit");
-    String probe = request.getParameter("probe");
-    String weight = request.getParameter("weight");
-    String currency = request.getParameter("currency");
-    String submit = request.getParameter("submit");
-
-    if(submit != null){
-        calculatedPrice = CalculatorHelper.calculate( material, unit, weight, probe, currency);
-        pricePerUnit = String.valueOf( new QuoteService().
-          getPrice( Material.valueOf(material)).
-          toCurrency( Currency.valueOf(currency)).
-          toDouble());
-    }
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,18 +6,65 @@
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/additional-methods.js"></script>
+
+    <script type="text/javascript">
+    var validateOptions = {
+                            rules: {
+                             probe : { required : true, digits: true, min: 1, max: 1000,  minlength: 1, maxlength: 4 } ,
+                             weight : { required : true, digits: true, min: 1,  minlength: 1, maxlength: 8 }
+                            }
+                          };
+
+    $(document).ready(function(){
+      $("#calcForm").validate(validateOptions);
+
+      $("#submit").click( function() {
+        $("#calcForm").valid();
+        calculate();
+        });
+     });
+
+
+     function calculate( ) {
+     $.ajax({
+          type: "POST",
+          url: "getQuote",
+          data: $("#calcForm").serialize(),
+          success: function(data){
+             $("#price").val( data );
+          }
+        });
+
+      $.ajax({
+         type: "POST",
+         url: "calculatePrice",
+         data: $("#calcForm").serialize(),
+         success: function(data){
+            $("#output"). prepend( data );
+         }
+       });
+     }
+
+
+    </script>
+
+
 </head>
 <body>
     <div class="container">
-        <form class="form-horizontal" method="post">
+        <form class="form-horizontal" method="post" id="calcForm">
             <legend>Provide your jewelery data</legend>
 
             <div class="control-group">
                 <label class="control-label" for="material">Metal</label>
                 <div class="controls">
                     <select name="material" id="material">
-                        <option value="GOLD" <%if("GOLD".equals(material)){out.print("selected");} %> >Gold</option>
-                        <option value="SILVER" <%if("SILVER".equals(material)){out.print("selected");} %> >Silver</option>
+                        <option value="GOLD" >Gold</option>
+                        <option value="SILVER" >Silver</option>
                     </select>
                 </div>
             </div>
@@ -48,8 +73,8 @@
                 <label class="control-label" for="unit">Weight unit</label>
                 <div class="controls">
                     <select name="unit" id="unit">
-                        <option value="g" <%if("g".equals(unit)){out.print("selected");} %> >Grams</option>
-                        <option value="oz" <%if("oz".equals(unit)){out.print("selected");} %> >OZ</option>
+                        <option value="g"  >Grams</option>
+                        <option value="oz" >OZ</option>
                     </select>
                 </div>
             </div>
@@ -58,8 +83,8 @@
                 <label class="control-label" for="currency">Currency</label>
                 <div class="controls">
                     <select name="currency" id="currency">
-                        <option value="USD" <%if("USD".equals(currency)){out.print("selected");} %> >USD</option>
-                        <option value="EUR" <%if("EUR".equals(currency)){out.print("selected");} %> >EUR</option>
+                        <option value="USD" >USD</option>
+                        <option value="EUR"  >EUR</option>
                     </select>
                 </div>
             </div>
@@ -67,37 +92,33 @@
             <div class="control-group">
                 <label class="control-label" for="price">Stock price</label>
                 <div class="controls">
-                    <input type="text" name="price" id="price" readonly="readonly" value="<%= pricePerUnit == null? "" : pricePerUnit%>"/>
+                    <input type="text" name="price" id="price" readonly="readonly" value=""/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="probe">Probe</label>
                 <div class="controls">
-                    <input type="text" name="probe" id="probe" value="<%= probe == null? "" : probe%>"/>
+                    <input type="text" name="probe" id="probe" />
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="weight">Weight</label>
                 <div class="controls">
-                    <input type="text" name="weight" id="weight" value="<%= weight == null? "" : weight%>" />
+                    <input type="text" name="weight" id="weight"  />
                 </div>
             </div>
 
             <div class="control-group">
                 <div class="controls">
-                    <input type="submit" class="btn btn-primary" name="submit" value="Calculate"></input>
+                    <input type="button" class="btn btn-primary" name="submit" id="submit" value="Calculate"></input>
                 </div>
             </div>
 
-            <% if(calculatedPrice!=null){ %>
-            <div class="control-group">
-                <div class="alert">
-                    The calculated price is <strong><%=calculatedPrice%> USD</strong>
-                </div>
+            <div id="output">
+
             </div>
-            <%}%>
 
         </form>
     </div>
