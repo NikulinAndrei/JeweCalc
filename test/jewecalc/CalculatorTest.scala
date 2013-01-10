@@ -10,7 +10,6 @@ import Currency._
 import quote.QuoteService
 import Unit._
 import Material._
-import org.junit.rules.ExpectedException
 
 /**
  * Created with IntelliJ IDEA.

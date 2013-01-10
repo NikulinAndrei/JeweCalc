@@ -7,5 +7,6 @@ package jewecalc;
  */
 public enum Material {
     GOLD,
-    SILVER
+    SILVER,
+    PLATINUM
 }
