@@ -14,8 +14,8 @@
     <script type="text/javascript">
         var validateOptions = {
             rules: {
-            probe : { required : true, digits: true, min: 1, max: 1000, minlength: 1, maxlength: 4 } ,
-            weight : { required : true, number: true, min: 0,  minlength: 1, maxlength: 8 }
+                probe : { required : true, digits: true, min: 1, max: 1000, minlength: 1, maxlength: 4 } ,
+                weight : { required : true, number: true, min: 0,  minlength: 1, maxlength: 8 }
             }
         };
 
@@ -43,10 +43,14 @@
                 type: "POST",
                 url: "calculatePrice",
                 data: $("#calcForm").serialize(),
-                success: function(data){
-                $("#output"). prepend( data );
-                }
+                success: showCalculatedPrice
             });
+        }
+
+        function showCalculatedPrice(data){
+            if(  $("#output div").length == 10 )
+                $("#output div:last-child").remove();
+            $("#output"). prepend( data );
         }
 
 
@@ -112,7 +116,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <input type="button" class="btn btn-primary" name="submit" id="submit" value="Calculate"></input>
+                <input type="button" class="btn btn-primary" name="submit" id="submit" value="Calculate"/>
             </div>
         </div>
 
@@ -122,10 +126,6 @@
 
     </form>
 
-    <div class="alert">
-        <a class="close" data-dismiss="alert">&times;</a>
-        <strong>Warning!</strong> Best check yo self, you're not looking too good.
-    </div>
 </div>
 </body>
 </html>
