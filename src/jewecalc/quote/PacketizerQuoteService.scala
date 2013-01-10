@@ -2,7 +2,7 @@ package jewecalc.quote
 
 import scala.util.parsing.json._
 import jewecalc.Currency._
-import jewecalc.{Price, Material}
+import jewecalc.{Config, Price, Material}
 import jewecalc.Unit._
 import org.slf4j.LoggerFactory
 import jewecalc.service.BackendService
@@ -26,7 +26,7 @@ private[quote] trait PacketizerQuoteService extends BackendService[Material, Pri
   }
 
   private def readFromRemoteService() ={
-    io.Source.fromURL("http://services.packetizer.com/spotprices/?f=json").mkString //ToDo: Hardcoded
+    io.Source.fromURL( Config.getConfParam("packetizer.endpoint") ).mkString
   }
 
   private def parseJson(jsonString:String)={

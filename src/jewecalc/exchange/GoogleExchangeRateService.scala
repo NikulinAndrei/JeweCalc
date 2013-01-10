@@ -1,6 +1,6 @@
 package jewecalc.exchange
 
-import jewecalc.Currency
+import jewecalc.{Config, Currency}
 import com.google.gson.Gson
 import jewecalc.service.BackendService
 
@@ -26,7 +26,7 @@ private [exchange] trait GoogleExchangeRateService extends BackendService [Curre
   }
 
   def createUrl( from: Currency, to: Currency ) = {
-    "http://www.google.com/ig/calculator?hl=en&q=1" + from.name() +"=" + to.name() //ToDo: Hardcoded
+     Config.getConfParam("googleExchange.endpoint")+ from.name() +"=" + to.name()
   }
 
   private def readFromRemoteService( endpoint: String) = {
