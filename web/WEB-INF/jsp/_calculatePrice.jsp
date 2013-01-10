@@ -3,7 +3,6 @@
 <%@ page import="jewecalc.quote.QuoteService" %>
 <%@ page import="jewecalc.Material" %>
 <%@ page import="jewecalc.Currency" %>
-
 <%
     String material = request.getParameter("material") ;
     String unit = request.getParameter("unit");
@@ -13,9 +12,9 @@
 
     String calculatedPrice = Calculator.calculate( material, unit, weight, probe, currency);
 %>
-    <div class="alert">
-        The calculated price for <strong><%=weight%> <%=unit%> </strong>
-        of <strong><%=material%> ( probe <%=probe%>)</strong>
-        is <strong><%=calculatedPrice%> <%=currency%></strong>
-    </div>
-
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  The calculated price for <strong><%=weight%> <%=unit%> </strong>
+  of <strong><%=material%> ( probe <%=probe%>)</strong>
+  is <strong><%=calculatedPrice%> <%=currency%></strong>
+</div>
